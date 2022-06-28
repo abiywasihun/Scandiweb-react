@@ -1,72 +1,90 @@
 import {
-    GET_CHATS,
-    GET_CHATS_FAIL,
-    GET_CHATS_SUCCESS,
-    GET_GROUPS,
-    GET_GROUPS_FAIL,
-    GET_GROUPS_SUCCESS,
-    GET_MESSAGES,
-    GET_MESSAGES_FAIL,
-    GET_MESSAGES_SUCCESS,
-    POST_ADD_MESSAGE,
-    POST_ADD_MESSAGE_FAIL,
-    POST_ADD_MESSAGE_SUCCESS,
+    GET_EVENTS,
+    GET_EVENTS_FAIL,
+    GET_EVENTS_SUCCESS,
+    ADD_NEW_EVENT,
+    ADD_EVENT_SUCCESS,
+    ADD_EVENT_FAIL,
+    UPDATE_EVENT,
+    UPDATE_EVENT_SUCCESS,
+    UPDATE_EVENT_FAIL,
+    DELETE_EVENT,
+    DELETE_EVENT_SUCCESS,
+    DELETE_EVENT_FAIL,
+    GET_CATEGORIES,
+    GET_CATEGORIES_SUCCESS,
+    GET_CATEGORIES_FAIL,
 } from "./actionTypes"
 
-export const getChats = () => ({
-    type: GET_CHATS,
+export const getEvents = () => ({
+    type: GET_EVENTS,
 })
 
-export const getChatsSuccess = chats => ({
-    type: GET_CHATS_SUCCESS,
-    payload: chats,
+export const getEventsSuccess = events => ({
+    type: GET_EVENTS_SUCCESS,
+    payload: events,
 })
 
-export const getChatsFail = error => ({
-    type: GET_CHATS_FAIL,
+export const getEventsFail = error => ({
+    type: GET_EVENTS_FAIL,
     payload: error,
 })
 
-export const getGroups = () => ({
-    type: GET_GROUPS,
+export const addNewEvent = event => ({
+    type: ADD_NEW_EVENT,
+    payload: event,
 })
 
-export const getGroupsSuccess = groups => ({
-    type: GET_GROUPS_SUCCESS,
-    payload: groups,
+export const addEventSuccess = event => ({
+    type: ADD_EVENT_SUCCESS,
+    payload: event,
 })
 
-export const getGroupsFail = error => ({
-    type: GET_GROUPS_FAIL,
+export const addEventFail = error => ({
+    type: ADD_EVENT_FAIL,
     payload: error,
 })
 
-export const getMessages = roomId => ({
-    type: GET_MESSAGES,
-    roomId,
+export const updateEvent = event => ({
+    type: UPDATE_EVENT,
+    payload: event,
 })
 
-export const getMessagesSuccess = messages => ({
-    type: GET_MESSAGES_SUCCESS,
-    payload: messages,
+export const updateEventSuccess = event => ({
+    type: UPDATE_EVENT_SUCCESS,
+    payload: event,
 })
 
-export const getMessagesFail = error => ({
-    type: GET_MESSAGES_FAIL,
+export const updateEventFail = error => ({
+    type: UPDATE_EVENT_FAIL,
     payload: error,
 })
 
-export const addMessage = message => ({
-    type: POST_ADD_MESSAGE,
-    message,
+export const deleteEvent = event => ({
+    type: DELETE_EVENT,
+    payload: event,
 })
 
-export const addMessageSuccess = message => ({
-    type: POST_ADD_MESSAGE_SUCCESS,
-    payload: message,
+export const deleteEventSuccess = event => ({
+    type: DELETE_EVENT_SUCCESS,
+    payload: event,
 })
 
-export const addMessageFail = error => ({
-    type: POST_ADD_MESSAGE_FAIL,
+export const deleteEventFail = error => ({
+    type: DELETE_EVENT_FAIL,
+    payload: error,
+})
+
+export const getCategories = () => ({
+    type: GET_CATEGORIES,
+})
+
+export const getCategoriesSuccess = categories => ({
+    type: GET_CATEGORIES_SUCCESS,
+    payload: categories,
+})
+
+export const getCategoriesFail = error => ({
+    type: GET_CATEGORIES_FAIL,
     payload: error,
 })
