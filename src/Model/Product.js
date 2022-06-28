@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import {
-    useQuery,
-    gql
-} from "@apollo/client";
+import { gql } from 'apollo-boost';
+
 
 const allProducts = gql `
   query{
