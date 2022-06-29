@@ -3,12 +3,13 @@ import {
     GET_EVENTS_FAIL,
     GET_EVENTS_SUCCESS,
     ADD_NEW_EVENT,
-    ADD_EVENT_SUCCESS,
+    ADD_TO_BASKET,
     ADD_EVENT_FAIL,
-    UPDATE_EVENT,
+    CHANGE_CURRENCY,
     UPDATE_EVENT_SUCCESS,
     UPDATE_EVENT_FAIL,
-    DELETE_EVENT,
+    CHANGE_BACKGROUND,
+    DELETE_FROM_BASKET,
     DELETE_EVENT_SUCCESS,
     DELETE_EVENT_FAIL,
     GET_CATEGORIES,
@@ -35,8 +36,8 @@ export const addNewEvent = event => ({
     payload: event,
 })
 
-export const addEventSuccess = event => ({
-    type: ADD_EVENT_SUCCESS,
+export const addToBasket = event => ({
+    type: ADD_TO_BASKET,
     payload: event,
 })
 
@@ -45,8 +46,8 @@ export const addEventFail = error => ({
     payload: error,
 })
 
-export const updateEvent = event => ({
-    type: UPDATE_EVENT,
+export const changeCurrency = event => ({
+    type: CHANGE_CURRENCY,
     payload: event,
 })
 
@@ -60,8 +61,12 @@ export const updateEventFail = error => ({
     payload: error,
 })
 
-export const deleteEvent = event => ({
-    type: DELETE_EVENT,
+export const changeBackground = event => ({
+    type: CHANGE_BACKGROUND,
+    payload: event,
+})
+export const removeFromBasket = event => ({
+    type: DELETE_FROM_BASKET,
     payload: event,
 })
 

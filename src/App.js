@@ -1,10 +1,14 @@
-import './App.css';
+import './assets/css/style.css'
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 import React, { PureComponent }  from 'react';
 
 import Header from './components/Header';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './components/HomePage/Home';
+import Single from './components/SinglePage/Single';
+import CartPage from './components/CartPage/CartPage';
 
 class App extends PureComponent {
   client = new ApolloClient({
@@ -14,7 +18,16 @@ class App extends PureComponent {
   render(){
   return (
     <ApolloProvider client={this.client}>
-      <Header/>
+      <BrowserRouter>
+
+       <Header/>
+      <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="/product/:id" element={<Single/>}/>
+      <Route path="/cart" element={<CartPage/>}>
+      </Route>
+    </Routes>
+    </BrowserRouter>
     </ApolloProvider>
   );
 }

@@ -2,72 +2,117 @@ import React, { Component } from 'react'
 import { allProducts } from '../Model/Product';
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
-import PropTypes from "prop-types"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faBagShopping,faShoppingCart,faDollarSign,faAngleDown,faYenSign} from "@fortawesome/free-solid-svg-icons";
 import {
     addNewEvent,
-    deleteEvent,
+    changeCurrency,
+    changeBackground,
     getCategories,
     getEvents,
     updateEvent,
   } from "../store/actions"
+import { Link } from 'react-router-dom';
+import CheckoutProduct from './HomePage/CheckoutProduct';
+import { getDuplicate, getTotalPrice } from '../utils/Common';
 class Header extends Component {
-    constructor(props){
-        super(props)
-       // const { events, categories, onGetCategories, onGetEvents } = this.props
-       this.handleValidEventSubmit()
-        console.log(props.events)
-    }
-     handleValidEventSubmit = (e, values) => {
-        const { onAddNewEvent, onUpdateEvent } = this.props
-          const newEvent = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent)
-          const newEvent1 = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event1",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent1)
-          const newEvent2 = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event2",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent2)
+    state = {
+        countDuplicate: [],
+        totalPrice: 0,
       }
-      componentDidMount(){
-        const { events, categories, onGetCategories, onGetEvents } = this.props
-          this.handleValidEventSubmit()
-          console.log(events)
-      }
+      changeCurrency = (symbol,label) => {
+        const { onChangeCurrency} = this.props
+          const newCurrency = {
+            label:label,
+            symbol:symbol,
+          }
+          // save new event
+          onChangeCurrency(newCurrency)
+        }
+      ChangeBackground=(response)=>{
+        const { onChangeBackground} = this.props
+        const {basket} =this.props
+            var newBackground='homepage'
+            if(response&&basket.length>0){
+                 newBackground='change_hompage'
+            }else{
+                 newBackground='homepage'
+                
+            }
+            onChangeBackground(newBackground)
+          }
   render() {
-    console.log(this.props.events)
-      console.log(this.props.data)
+      const {basket,currency} =this.props
+      const countDuplicate=basket.length>0?getDuplicate(basket):[]
+      const totalPrice=basket.length>0?getTotalPrice(basket,currency):0
+      var basket__badge='checkout__badge'
+      if(basket.length>0){
+         basket__badge='show__badge checkout__badge'
+      }else{
+         basket__badge='checkout__badge'
+      }
     return (
-      <div>Header</div>
+        <div className='header'>
+        <div className="left__header">
+            <span>Women</span>
+            <span>Men</span>
+            <span>Kids</span>
+        </div>
+        <div className="middle__header">
+        <FontAwesomeIcon icon={faBagShopping}/>
+        </div>
+        <div className="right__header">
+            <div className="currency__dropdown">
+            <span>{currency.symbol}</span>
+            <FontAwesomeIcon icon={faAngleDown} />
+            <div className='dropdown'>
+            <p onClick={()=>this.changeCurrency('$', 'USD')} >$ USD</p>
+            <p onClick={()=>this.changeCurrency('£', 'GBP')} >£ GBP</p>
+            <p onClick={()=>this.changeCurrency('A$', 'AUD')} >A$ AUD</p>
+            <p onClick={()=>this.changeCurrency('¥', 'JPY')} >¥ JPY</p>
+            <p onClick={()=>this.changeCurrency('₽' ,'RUB')} >₽ RUB</p>
+            </div>
+            </div>
+            <div onMouseEnter={() =>this.ChangeBackground(true)}
+        onMouseLeave={() =>this.ChangeBackground(false)} className='shopping__cart'>
+            <FontAwesomeIcon icon={faShoppingCart} />
+            <span className={basket__badge}>{basket.length}</span>
+            <div className='cart__list'>
+            <p className='cart__title'><strong>{basket.length?"My Bag "+basket.length+" ":""}</strong>{basket.length?'items':''}</p>
+            {countDuplicate.length > 0 && countDuplicate.map(item=>(
+                    <CheckoutProduct
+                    id={item.id}
+                    name={item.name}
+                    image={item.image}
+                    attributes={item.attributes}
+                    currency={item.currency}
+                    prices={item.prices}
+                    count={item.count}
+                    />
+                ))}
+                <div className="total__price">
+                  {basket.length?( <React.Fragment><p><strong>Total</strong></p><p>{currency.symbol+totalPrice&&totalPrice.toFixed(2)}</p></React.Fragment>):''}
+                </div>
+                <div className="cartCheckout__button">
+                  {basket.length?( <React.Fragment><button>VIEW BAG</button><Link to={'/cart'}> <button className='cart__checkout'>CHECK OUT</button></Link> </React.Fragment>):''}
+                  </div>
+            </div>
+            </div>
+        </div>
+      </div>
     )
   }
 }
 
 const mapStateToProps = ({ Cart }) => ({
-    events: Cart.events,
-    categories: Cart.categories,
-    isEventUpdated: Cart.isEventUpdated
+    basket: Cart.basket,
+    currency: Cart.currency,
   })
 const mapDispatchToProps = dispatch => ({
     onGetEvents: () => dispatch(getEvents()),
     onGetCategories: () => dispatch(getCategories()),
     onAddNewEvent: event => dispatch(addNewEvent(event)),
-    onUpdateEvent: event => dispatch(updateEvent(event)),
-    onDeleteEvent: event => dispatch(deleteEvent(event)),
+    onChangeCurrency: event => dispatch(changeCurrency(event)),
+    onChangeBackground: event => dispatch(changeBackground(event)),
   })
 export default connect(mapStateToProps, mapDispatchToProps)(graphql(allProducts)(Header));
