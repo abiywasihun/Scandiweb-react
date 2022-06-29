@@ -14,12 +14,11 @@ class CheckoutProduct extends PureComponent {
   removeFromBasket=()=>{
     //remove the item from the basket
     const { onRemoveFromBasket } = this.props
-    const {id,gallery,name,inStock,attributes,prices}=this.props
+    const {id,image,name,attributes,prices}=this.props
     const item={
       id:id,
       name:name,
-      image:gallery,
-      inStock:inStock,
+      image:image,
       attributes:attributes,
       prices:prices,
     }
@@ -53,13 +52,12 @@ class CheckoutProduct extends PureComponent {
           onAddNewEvent(newEvent2)
       }
       addToBasket=()=>{
-        const {id,gallery,name,inStock,attributes,prices}=this.props
+        const {id,image,name,attributes,prices,count}=this.props
         const {onAddToBasket}=this.props
         const item={
           id:id,
           name:name,
-          image:gallery,
-          inStock:inStock,
+          image:image,
           attributes:attributes,
           prices:prices,
         }

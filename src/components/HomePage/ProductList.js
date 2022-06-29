@@ -60,15 +60,10 @@ class ProductList extends PureComponent {
           // save new event
           onAddNewEvent(newEvent2)
       }
-      componentDidMount(){
-        const {currency} =this.props
-        const {prices}=this.props
-        const get_price=getProductPrice(prices,currency)
-        this.setState({prices_: get_price})
-      }
   render() {
+    const {currency} =this.props
     const {id,gallery,name,inStock,attributes,prices}=this.props
-    const {prices_}=this.state
+    const prices_=getProductPrice(prices,currency)
     return (
         <div className='card'>
                

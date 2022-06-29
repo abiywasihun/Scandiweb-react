@@ -5,7 +5,14 @@ import { ApolloProvider } from 'react-apollo';
 import React, { PureComponent }  from 'react';
 
 import Header from './components/Header';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 import Home from './components/HomePage/Home';
 import Single from './components/SinglePage/Single';
 import CartPage from './components/CartPage/CartPage';
@@ -18,16 +25,17 @@ class App extends PureComponent {
   render(){
   return (
     <ApolloProvider client={this.client}>
-      <BrowserRouter>
-
-       <Header/>
-      <Routes>
-      <Route path="/" element={<Home/>}/>
-      <Route path="/product/:id" element={<Single/>}/>
-      <Route path="/cart" element={<CartPage/>}>
-      </Route>
-    </Routes>
-    </BrowserRouter>
+       
+       <Router>
+       <Header/> 
+        <Switch>
+        
+        <Route path='/cart' component={CartPage} exact/>
+        <Route path='/product/:id' component={Single} exact/>
+        <Route path='/' component={Home} />
+        </Switch>
+    </Router>
+    
     </ApolloProvider>
   );
 }

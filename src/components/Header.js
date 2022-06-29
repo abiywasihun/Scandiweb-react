@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { allProducts } from '../Model/Product';
+import {allProducts}  from '../Model/Product';
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -91,10 +91,10 @@ class Header extends Component {
                     />
                 ))}
                 <div className="total__price">
-                  {basket.length?( <React.Fragment><p><strong>Total</strong></p><p>{currency.symbol+totalPrice&&totalPrice.toFixed(2)}</p></React.Fragment>):''}
+                  {basket.length?( <React.Fragment><p><strong>Total</strong></p><p>{currency.symbol}{totalPrice&&totalPrice.toFixed(2)}</p></React.Fragment>):''}
                 </div>
                 <div className="cartCheckout__button">
-                  {basket.length?( <React.Fragment><button>VIEW BAG</button><Link to={'/cart'}> <button className='cart__checkout'>CHECK OUT</button></Link> </React.Fragment>):''}
+                  {basket.length?( <React.Fragment><button>VIEW BAG</button><Link to='/cart'> <button className='cart__checkout'>CHECK OUT</button></Link> </React.Fragment>):''}
                   </div>
             </div>
             </div>

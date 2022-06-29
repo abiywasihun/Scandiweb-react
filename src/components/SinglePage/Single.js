@@ -1,19 +1,17 @@
 import React, { PureComponent } from 'react'
-import { allProducts } from '../../Model/Product';
+import { allProducts, getProductById } from '../../Model/Product';
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
+import { Query, Mutation } from 'react-apollo'
+import ProductDetails from './pdp'
 import {
     addNewEvent,
     getCategories,
     getEvents,
   } from "../../store/actions"
 class Single extends PureComponent {
-    constructor(props){
-        super(props)
-       // const { events, categories, onGetCategories, onGetEvents } = this.props
-   //    this.handleValidEventSubmit()
-    //    console.log(props.events)
-    }
+  
      handleValidEventSubmit = (e, values) => {
         const { onAddNewEvent, onUpdateEvent } = this.props
           const newEvent = {
@@ -42,18 +40,39 @@ class Single extends PureComponent {
           onAddNewEvent(newEvent2)
       }
       componentDidMount(){
+        const {id} = this.props.match.params
+        console.log(id)
+     //   const { id } = useParams()
         const { events, categories, onGetCategories, onGetEvents } = this.props
         //  this.handleValidEventSubmit()
         //  console.log(events)
       }
   render() {
-    console.log(this.props.events)
-      console.log(this.props.data)
+    const {id} = this.props.match.params
     return (
-      <div>Header</div>
+      <Query query={getProductById} variables={{ id }}>
+      {({ loading, error, data }) => {
+        const product=data.product
+        console.log(product)
+        if (loading) return null;
+        if (error) return `Error! ${error}`;
+  
+        return (
+          <ProductDetails 
+          id={product.id}
+          gallery={product.gallery}
+          name={product.name}
+          inStock={product.inStock}
+          attributes={product.attributes}
+          description={product.description}
+          prices={product.prices}/>
+        );
+      }}
+      </Query>
     )
   }
 }
+
 
 const mapStateToProps = ({ Cart }) => ({
     basket: Cart.basket,
@@ -63,4 +82,4 @@ const mapDispatchToProps = dispatch => ({
     onGetCategories: () => dispatch(getCategories()),
     onAddNewEvent: event => dispatch(addNewEvent(event)),
   })
-export default connect(mapStateToProps, mapDispatchToProps)(graphql(allProducts)(Single));
+export default connect(mapStateToProps, mapDispatchToProps)(Single);

@@ -47,7 +47,7 @@
     .right__header svg {
         filter: opacity(0.5);
         cursor: pointer;
-        font-size: 20px;
+        font-size: 17px;
     }
     
     .currency__dropdown svg:first-child {
