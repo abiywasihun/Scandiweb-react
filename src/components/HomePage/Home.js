@@ -3,50 +3,10 @@ import { allProducts } from '../../Model/Product';
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 import {
-    addNewEvent,
-    getCategories,
-    getEvents,
+  addToBasket
   } from "../../store/actions"
 import ProductList from './ProductList';
 class Home extends PureComponent {
-    constructor(props){
-        super(props)
-       // const { events, categories, onGetCategories, onGetEvents } = this.props
-     //  this.handleValidEventSubmit()
-      //  console.log(props.events)
-    }
-     handleValidEventSubmit = (e, values) => {
-        const { onAddNewEvent, onUpdateEvent } = this.props
-          const newEvent = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent)
-          const newEvent1 = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event1",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent1)
-          const newEvent2 = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event2",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent2)
-      }
-      componentDidMount(){
-        const { events, categories, onGetCategories, onGetEvents } = this.props
-         // this.handleValidEventSubmit()
-         // console.log(events)
-      }
   render() {
      const {data,background} =this.props
      const Category=data.categories
@@ -77,8 +37,6 @@ const mapStateToProps = ({ Cart }) => ({
     background:Cart.background,
   })
 const mapDispatchToProps = dispatch => ({
-    onGetEvents: () => dispatch(getEvents()),
-    onGetCategories: () => dispatch(getCategories()),
-    onAddNewEvent: event => dispatch(addNewEvent(event)),
+  onAddToBasket:event=>dispatch(addToBasket(event)),
   })
 export default connect(mapStateToProps, mapDispatchToProps)(graphql(allProducts)(Home));

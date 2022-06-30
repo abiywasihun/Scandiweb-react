@@ -1,52 +1,12 @@
 import React, { PureComponent } from 'react'
-import { allProducts, getProductById } from '../../Model/Product';
-import { graphql } from 'react-apollo';
+import {  getProductById } from '../../Model/Product';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
-import { Query, Mutation } from 'react-apollo'
+import { Query } from 'react-apollo'
 import ProductDetails from './pdp'
 import {
-    addNewEvent,
-    getCategories,
-    getEvents,
+  addToBasket
   } from "../../store/actions"
 class Single extends PureComponent {
-  
-     handleValidEventSubmit = (e, values) => {
-        const { onAddNewEvent, onUpdateEvent } = this.props
-          const newEvent = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent)
-          const newEvent1 = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event1",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent1)
-          const newEvent2 = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event2",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent2)
-      }
-      componentDidMount(){
-        const {id} = this.props.match.params
-        console.log(id)
-     //   const { id } = useParams()
-        const { events, categories, onGetCategories, onGetEvents } = this.props
-        //  this.handleValidEventSubmit()
-        //  console.log(events)
-      }
   render() {
     const {id} = this.props.match.params
     return (
@@ -78,8 +38,6 @@ const mapStateToProps = ({ Cart }) => ({
     basket: Cart.basket,
   })
 const mapDispatchToProps = dispatch => ({
-    onGetEvents: () => dispatch(getEvents()),
-    onGetCategories: () => dispatch(getCategories()),
-    onAddNewEvent: event => dispatch(addNewEvent(event)),
+  onAddToBasket:event=>dispatch(addToBasket(event)),
   })
 export default connect(mapStateToProps, mapDispatchToProps)(Single);

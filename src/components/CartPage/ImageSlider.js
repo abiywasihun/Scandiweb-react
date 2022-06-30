@@ -1,12 +1,5 @@
 import React, { PureComponent } from 'react'
-import { allProducts, getProductById } from '../../Model/Product';
-import PropTypes from 'prop-types'
-import {
-    addNewEvent,
-    getCategories,
-    getEvents,
-  } from "../../store/actions"
-  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleLeft,faAngleRight} from "@fortawesome/free-solid-svg-icons";
 
 class ImageSlider extends PureComponent {
@@ -38,8 +31,9 @@ class ImageSlider extends PureComponent {
       }
     return (
         <section className='slider'>
-            <FontAwesomeIcon icon={faAngleLeft} className='left-arrow' onClick={this.prevSlide}/>
-            <FontAwesomeIcon icon={faAngleRight} className='right-arrow' onClick={this.nextSlide}/>
+      {image.length>1?(<div><FontAwesomeIcon icon={faAngleLeft} className='left-arrow' onClick={this.prevSlide}/>
+            <FontAwesomeIcon icon={faAngleRight} className='right-arrow' onClick={this.nextSlide}/></div>):''}
+
       {image.map((slide, index) => {
         return (
           <div

@@ -6,9 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
 import {
-    addNewEvent,
-    getCategories,
-    getEvents,
     addToBasket,
   } from "../../store/actions"
 import { getProductPrice } from '../../utils/Common';
@@ -33,33 +30,7 @@ class ProductList extends PureComponent {
     onAddToBasket(item)
   
   };
-     handleValidEventSubmit = (e, values) => {
-        const { onAddNewEvent, onUpdateEvent } = this.props
-          const newEvent = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent)
-          const newEvent1 = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event1",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent1)
-          const newEvent2 = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event2",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent2)
-      }
+     
   render() {
     const {currency} =this.props
     const {id,gallery,name,inStock,attributes,prices}=this.props
@@ -91,9 +62,6 @@ const mapStateToProps = ({ Cart }) => ({
     currency: Cart.currency,
   })
 const mapDispatchToProps = dispatch => ({
-    onGetEvents: () => dispatch(getEvents()),
     onAddToBasket:event=>dispatch(addToBasket(event)),
-    onGetCategories: () => dispatch(getCategories()),
-    onAddNewEvent: event => dispatch(addNewEvent(event)),
   })
 export default connect(mapStateToProps, mapDispatchToProps)(graphql(allProducts)(ProductList));

@@ -3,14 +3,10 @@ import {allProducts}  from '../Model/Product';
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faBagShopping,faShoppingCart,faDollarSign,faAngleDown,faYenSign} from "@fortawesome/free-solid-svg-icons";
+import {faBagShopping,faShoppingCart,faAngleDown} from "@fortawesome/free-solid-svg-icons";
 import {
-    addNewEvent,
     changeCurrency,
     changeBackground,
-    getCategories,
-    getEvents,
-    updateEvent,
   } from "../store/actions"
 import { Link } from 'react-router-dom';
 import CheckoutProduct from './HomePage/CheckoutProduct';
@@ -109,9 +105,6 @@ const mapStateToProps = ({ Cart }) => ({
     currency: Cart.currency,
   })
 const mapDispatchToProps = dispatch => ({
-    onGetEvents: () => dispatch(getEvents()),
-    onGetCategories: () => dispatch(getCategories()),
-    onAddNewEvent: event => dispatch(addNewEvent(event)),
     onChangeCurrency: event => dispatch(changeCurrency(event)),
     onChangeBackground: event => dispatch(changeBackground(event)),
   })

@@ -413,7 +413,7 @@
         position: absolute;
         bottom: 5%;
         right: 32px;
-        font-size: 3rem;
+        font-size: 2rem;
         color: #000;
         z-index: 10;
         cursor: pointer;
@@ -424,7 +424,7 @@
         position: absolute;
         bottom: 5%;
         right: 70px;
-        font-size: 3rem;
+        font-size: 2rem;
         color: #000;
         z-index: 10;
         cursor: pointer;

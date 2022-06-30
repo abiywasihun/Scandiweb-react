@@ -3,9 +3,6 @@ import { allProducts } from '../../Model/Product';
 import { graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 import {
-    addNewEvent,
-    getCategories,
-    getEvents,
     addToBasket,
     removeFromBasket,
   } from "../../store/actions"
@@ -24,33 +21,6 @@ class CheckoutProduct extends PureComponent {
     }
     onRemoveFromBasket(item)
   }
-     handleValidEventSubmit = (e, values) => {
-        const { onAddNewEvent, onUpdateEvent } = this.props
-          const newEvent = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent)
-          const newEvent1 = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event1",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent1)
-          const newEvent2 = {
-            id: Math.floor(Math.random() * 100),
-            title: "This is my first event2",
-            start:  new Date(),
-            className: "Hello Category",
-          }
-          // save new event
-          onAddNewEvent(newEvent2)
-      }
       addToBasket=()=>{
         const {id,image,name,attributes,prices,count}=this.props
         const {onAddToBasket}=this.props
@@ -102,10 +72,7 @@ const mapStateToProps = ({ Cart }) => ({
   currency: Cart.currency,
   })
 const mapDispatchToProps = dispatch => ({
-    onGetEvents: () => dispatch(getEvents()),
     onAddToBasket:event=>dispatch(addToBasket(event)),
-    onGetCategories: () => dispatch(getCategories()),
     onRemoveFromBasket:event=>dispatch(removeFromBasket(event)),
-    onAddNewEvent: event => dispatch(addNewEvent(event)),
   })
 export default connect(mapStateToProps, mapDispatchToProps)(graphql(allProducts)(CheckoutProduct));
