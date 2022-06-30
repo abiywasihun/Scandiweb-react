@@ -65,11 +65,6 @@ class CheckoutProduct extends PureComponent {
         onAddToBasket(item)
       
       };
-      componentDidMount(){
-        const { events, categories, onGetCategories, onGetEvents } = this.props
-       //   this.handleValidEventSubmit()
-       //   console.log(events)
-      }
   render() {
     const {currency} =this.props
     const {id,image,name,attributes,prices,count}=this.props
